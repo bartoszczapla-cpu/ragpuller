@@ -21,8 +21,7 @@ def get_client() -> genai.Client:
     global _client
     if _client is None:
         # TODO: Odkomentuj ponizej i ustaw GEMINI_API_KEY w .env
-        # _client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-        pass
+        _client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
     return _client
 
 
@@ -37,13 +36,10 @@ def build_system_prompt(context: str) -> str:
         System prompt jako string
     """
     # TODO: Napisz swoj prompt. Przykladowy ponizej:
-    # return (
-    #     "Jestes pomocnym asystentem. Odpowiadaj TYLKO na podstawie ponizszego kontekstu.\n"
-    #     "Jesli kontekst nie zawiera odpowiedzi, powiedz ze nie wiesz.\n"
-    #     "Cytuj nazwy zrodel gdy to mozliwe.\n\n"
-    #     f"KONTEKST:\n{context}"
-    # )
-    pass
+    return (
+        "Jestes pomocnym asystentem. Odpowiadaj TYLKO na podstawie ponizszego kontekstu.\n"
+        f"KONTEKST:\n{context}"
+    )
 
 
 def generate_answer(question: str, context: str, history: list[dict]) -> str:

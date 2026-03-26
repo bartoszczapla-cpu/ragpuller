@@ -32,8 +32,7 @@ def _get_embed_client() -> genai.Client:
     global _embed_client
     if _embed_client is None:
         # TODO: Odkomentuj ponizej i ustaw GEMINI_API_KEY w .env
-        # _embed_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-        pass
+        _embed_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
     return _embed_client
 
 
@@ -53,12 +52,11 @@ def create_embedding(text: str) -> list[float]:
         return None
 
     # TODO: Odkomentuj ponizej:
-    # result = client.models.embed_content(
-    #     model="gemini-embedding-001",
-    #     contents=text,
-    # )
-    # return result.embeddings[0].values
-    pass
+    result = client.models.embed_content(
+        model="gemini-embedding-001",
+        contents=text,
+    )
+    return result.embeddings[0].values
 
 
 # ── ChromaDB ─────────────────────────────────────────────────
@@ -131,14 +129,13 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> list[str]
         Lista chunkow (lub None jesli nie zaimplementowano)
     """
     # TODO: Odkomentuj ponizej:
-    # chunks = []
-    # start = 0
-    # while start < len(text):
-    #     end = start + chunk_size
-    #     chunks.append(text[start:end])
-    #     start = end - overlap
-    # return chunks
-    pass
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = start + chunk_size
+        chunks.append(text[start:end])
+        start = end - overlap
+    return chunks
 
 
 def ingest_file(filepath: str):

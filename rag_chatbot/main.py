@@ -42,7 +42,7 @@ def chat_loop():
 
         # TODO: Wygeneruj embedding pytania
         # Podpowiedz: query_embedding = create_embedding(question)
-        query_embedding = None  # <-- zamien na create_embedding(question)
+        query_embedding = create_embedding(question)  # <-- zamien na create_embedding(question)
 
         if query_embedding is None:
             print("Bot: create_embedding() zwrocil None — zaimplementuj rag_store!")
