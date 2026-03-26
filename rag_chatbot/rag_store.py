@@ -12,6 +12,7 @@ from pathlib import Path
 import chromadb
 from google import genai
 from dotenv import load_dotenv
+from pypdf import PdfReader
 
 load_dotenv()
 
@@ -143,8 +144,13 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> list[str]
 def ingest_file(filepath: str):
     """Laduje plik .txt do ChromaDB (chunking + embedding)."""
     print(f"  Ladowanie: {filepath}")
-    with open(filepath, "r", encoding="utf-8") as f:
-        text = f.read()
+    if filepath.lower().endswith(".pdf"):
+        reader = PdfReader(filepath)
+        text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    else:
+        with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
+            text = f.read()
+
 
     chunks = chunk_text(text)
     if not chunks:

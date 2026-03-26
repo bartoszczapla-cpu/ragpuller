@@ -1,0 +1,16 @@
+# Data / secrets
+rag_chatbot/.env
+.env
+chroma_data/
+rag_chatbot/chroma_data/
+
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
